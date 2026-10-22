@@ -1,4 +1,4 @@
-const C="bigshot-minds-pwa-v3",S=["./","./index.html","./manifest.webmanifest","./icons/icon.svg"];
+const C="bigshot-minds-pwa-v4",S=["./","./index.html","./manifest.webmanifest","./icons/icon.svg"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(S)));self.skipWaiting()});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x.startsWith("bigshot-minds-pwa-")&&x!==C).map(x=>caches.delete(x)))));self.clients.claim()});
 self.addEventListener("fetch",e=>{
