@@ -1,17 +1,21 @@
 # Bigshot Minds PWA
 
-Mobile-first static PWA for the public Bigshot Minds Google Sites directory.
+A cross-device installable PWA shell that displays the live published Bigshot Minds Google Sites page.
 
-## Included
-- Eight categories and all 48 visible listings.
-- Preserved referral/affiliate destinations as recovered from the source page.
-- Mobile-responsive UI, search, category navigation, install prompt and offline shell caching.
-- GitHub Pages deployment workflow.
+## Source of truth and automatic updates
 
-## Known limitations
-Pocket Option and CoinsBee source links both resolve to malformed `http://h`. Their cards open the original website rather than guessing replacement referral destinations. Repair those links on Google Sites and then update the PWA.
-This reproduces the visible directory; original Google Sites images, embeds and all interactive features have not been completely replicated. The original website link remains available.
-Updates to Google Sites do not automatically sync into this independent PWA. Changes must be committed here; see `app.js` data and destinations in the embedded script.
+The PWA embeds the original published website directly rather than maintaining a second manually copied directory. If the original page can be framed by the browser, its current layout, images, links, embedded content and future published edits come from Google Sites itself; no separate content rebuild is needed.
 
-## Deployment
-The GitHub Actions workflow deploys the root directory to GitHub Pages on pushes to `main`. Enable Pages with GitHub Actions as the source under Settings → Pages.
+Source: https://sites.google.com/view/bigshot-minds/home
+
+## Compatibility
+
+Responsive full-viewport layout for Android, iOS/iPadOS, Windows, macOS, Linux, and desktop/mobile browsers. Install support depends on the browser and operating system. On iOS/iPadOS, use Safari's Add to Home Screen. On desktop Chromium browsers, use Install app when available.
+
+## Important browser limitation
+
+Google Sites controls whether its page may be displayed inside an iframe. If Google blocks embedded viewing in a particular browser, the PWA shows a direct link to the official site. That direct link always opens the authoritative live site, but it opens outside the PWA shell. The shell cannot override Google's frame-security policy.
+
+## Updates
+
+PWA shell files deploy to GitHub Pages on pushes to `main`. The service worker uses a versioned cache for the shell only; the official website remains hosted and updated by Google Sites.
