@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Bigshot Minds™",
   "short_name": "Bigshot Minds™",
-  "description": "Installable launcher for the official Bigshot Minds website.",
+  "description": "Installable Bigshot Minds™ home-screen app.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
