@@ -3,19 +3,66 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#101827">
+  <meta name="application-name" content="Bigshot Minds™">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bigshot Minds™">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Bigshot Minds™</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
-  <script>
-    // Use the original Google Sites page as the source of truth so its actual
-    // design, images, content, links, and future edits are shown directly.
-    window.location.replace("https://sites.google.com/view/bigshot-minds/home");
-  </script>
+  <link rel="apple-touch-icon" href="./icons/icon.svg">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #0b1120; }
+    #site { display: block; width: 100%; height: 100%; height: 100dvh; border: 0; background: #fff; }
+    #install, #open-site { position: fixed; z-index: 5; top: max(10px, env(safe-area-inset-top)); right: 10px; border: 0; border-radius: 8px; padding: 9px 12px; font: 600 13px system-ui, sans-serif; text-decoration: none; box-shadow: 0 2px 12px #0003; }
+    #install { display: none; right: 10px; background: #9ce6c0; color: #09251b; }
+    #open-site { right: 10px; background: #101827dd; color: white; }
+    #install:not([hidden]) + #open-site { right: 94px; }
+  </style>
 </head>
 <body>
-  <p>Opening the original Bigshot Minds™ website…</p>
-  <p><a href="https://sites.google.com/view/bigshot-minds/home">Open Bigshot Minds™</a></p>
+  <iframe id="site" title="Bigshot Minds™ website"
+    src="https://sites.google.com/view/bigshot-minds/home"
+    allow="clipboard-read; clipboard-write; fullscreen"
+    allowfullscreen
+    referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  <button id="install" type="button" hidden>Install app</button>
+  <a id="open-site" href="https://sites.google.com/view/bigshot-minds/home"
+     target="_blank" rel="noopener">Open site</a>
+  <script>
+    let pendingInstall = null;
+    const installButton = document.getElementById("install");
+    window.addEventListener("beforeinstallprompt", event => {
+      event.preventDefault();
+      pendingInstall = event;
+      installButton.hidden = false;
+      installButton.style.display = "block";
+    });
+    installButton.addEventListener("click", async () => {
+      if (!pendingInstall) return;
+      pendingInstall.prompt();
+      await pendingInstall.userChoice;
+      pendingInstall = null;
+      installButton.hidden = true;
+      installButton.style.display = "none";
+    });
+    window.addEventListener("appinstalled", () => {
+      pendingInstall = null;
+      installButton.hidden = true;
+      installButton.style.display = "none";
+    });
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", async () => {
+        try {
+          const registration = await navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" });
+          registration.update().catch(() => {});
+        } catch (error) {
+          console.error("Bigshot Minds™ service worker registration failed", error);
+        }
+      });
+    }
+  </script>
 </body>
 </html>

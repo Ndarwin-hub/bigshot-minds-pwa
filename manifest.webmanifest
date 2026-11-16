@@ -1,1 +1,27 @@
-{"name":"Bigshot Minds","short_name":"Bigshot Minds","description":"Mobile directory of Bigshot Minds resources.","start_url":"./","scope":"./","display":"standalone","orientation":"portrait","background_color":"#0b1120","theme_color":"#101827","icons":[{"src":"./icons/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
+{
+  "id": "./",
+  "name": "Bigshot Minds™",
+  "short_name": "Bigshot Minds™",
+  "description": "The official Bigshot Minds™ website in an installable app.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#0b1120",
+  "theme_color": "#101827",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
